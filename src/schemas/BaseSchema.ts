@@ -1,7 +1,7 @@
 import Result from "../result";
 
 interface BaseSchema {
-    parse: () => Result;
+    parse: (...args: any[]) => Result;
 }
 
 export default BaseSchema;
