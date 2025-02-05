@@ -4,6 +4,7 @@ import BaseSchema from "./BaseSchema";
 type StringRules = {
     MAX_LEN?: number;
     MIN_LEN?: number;
+    // REGEX?: RegExp;
 }
 
 const RuleBook = {
@@ -12,7 +13,10 @@ const RuleBook = {
     },
     MIN_LEN: (data: string, length: number): boolean => {
         return data.length < length;
-    }
+    },
+    // REGEX: (data: string, regex: RegExp): boolean => {
+    //     return regex.test(data);
+    // }
 }
 
 class str implements BaseSchema {
@@ -46,6 +50,10 @@ class str implements BaseSchema {
         this.rules.MIN_LEN = length;
         return new str(this.rules)
     }
+
+    // public regex(rule: RegExp) {
+
+    // }
 }
 
 export default str;
