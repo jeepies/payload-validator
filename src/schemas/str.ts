@@ -26,7 +26,7 @@ class str implements BaseSchema {
         this.rules = rules ?? {};
     }
 
-    private _parse(data: any): any {
+    private _parse(data: string): any {
         const results = Object.entries(this.rules).map(([k, v]) => ({ rule: [k], failed: RuleBook[k as keyof StringRules](data, v)}))
         return results.filter(r => r.failed === true).map(f => f.rule);
     }
