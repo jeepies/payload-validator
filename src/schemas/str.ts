@@ -24,11 +24,15 @@ class str implements BaseSchema {
 
     constructor(rules?: StringRules) {
         this.rules = rules ?? {};
-    } 
+    }
 
-    public parse(data: string): Result {
+    private _parse(data: any): any {
         const results = Object.entries(this.rules).map(([k, v]) => ({ rule: [k], failed: RuleBook[k as keyof StringRules](data, v)}))
-        const failed = results.filter(r => r.failed === true).map(f => f.rule);
+        return results.filter(r => r.failed === true).map(f => f.rule);
+    }
+
+    public safeParse(data: string): Result {
+        const failed = this._parse(data);
 
         if(failed.length !== 0) return {
             success: false,
@@ -41,6 +45,12 @@ class str implements BaseSchema {
         }
     }
 
+    public parse(data: string): string {
+        const failed = this._parse(data);
+        if(failed.length !== 0) throw new Error('string is invalid');
+        return data;
+    }
+
     public max(length: number) {
         this.rules.MAX_LEN = length;
         return new str(this.rules)
@@ -49,6 +59,10 @@ class str implements BaseSchema {
     public min(length: number) {
         this.rules.MIN_LEN = length;
         return new str(this.rules)
+    }
+
+    public contains(substr: string) {
+        
     }
 
     // public regex(rule: RegExp) {

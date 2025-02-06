@@ -9,7 +9,7 @@ describe('🧪 Validator Tests', () => {
                 .min(4).max(8);
 
             test('should fail when given a string that exceeds the max length', () => {
-                const result = username.parse('superlongusername');
+                const result = username.safeParse('superlongusername');
                 expect(result).toEqual({
                     success: false,
                     error: [
@@ -19,7 +19,7 @@ describe('🧪 Validator Tests', () => {
             })
 
             test('should fail when given a string that deceeds the max length', () => {
-                const result = username.parse('jay');
+                const result = username.safeParse('jay');
                 expect(result).toEqual({
                     success: false,
                     error: [
@@ -29,7 +29,7 @@ describe('🧪 Validator Tests', () => {
             })
 
             test('should pass on a string that follows all of the rules', () => {
-                const result = username.parse('user1');
+                const result = username.safeParse('user1');
                 expect(result).toEqual({
                     success: true,
                     data: 'user1'
