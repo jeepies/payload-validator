@@ -1,7 +1,9 @@
+import int from './int';
 import str from './str';
 
 const schemas = {
-    str
+    str,
+    int
 };
 
 export default schemas;

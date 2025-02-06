@@ -5,3 +5,6 @@ const validator = {
 };
 
 export default validator;
+
+
+// all of this error code stuff is confusing. give the users ability to write their own errors
