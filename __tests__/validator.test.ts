@@ -164,6 +164,46 @@ describe('🧪 Validator Tests', () => {
           });
         });
       });
+
+      describe('NEGATIVE', () => {
+        const freezerTemp = new validator.int().negative();
+
+        test('should fail when given an integer above 0', () => {
+          const result = freezerTemp.safeParse(1);
+          expect(result).toEqual({
+            error: ['Failed on NEGATIVE'],
+            success: false,
+          });
+        });
+
+        test('should pass when given an integer below 0', () => {
+          const result = freezerTemp.safeParse(-18);
+          expect(result).toEqual({
+            data: -18,
+            success: true,
+          });
+        });
+      });
+
+      describe('POSITIVE', () => {
+        const jeepiesIQ = new validator.int().positive();
+
+        test('should fail when given an integer below 0', () => {
+          const result = jeepiesIQ.safeParse(-17);
+          expect(result).toEqual({
+            error: ['Failed on POSITIVE'],
+            success: false,
+          });
+        });
+
+        test('should pass when given an integer below 0', () => {
+          const result = jeepiesIQ.safeParse(7);
+          expect(result).toEqual({
+            data: 7,
+            success: true,
+          });
+        });
+      });
     });
 
     describe('String', () => {

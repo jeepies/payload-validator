@@ -8,6 +8,8 @@ type IntRules = {
   LTE?: Rule;
   GT?: Rule;
   LT?: Rule;
+  NEGATIVE?: Rule;
+  POSITIVE?: Rule;
 };
 
 const RuleBook = {
@@ -26,6 +28,12 @@ const RuleBook = {
   LT: (base: number, comparator: number): boolean => {
     return base < comparator;
   },
+  NEGATIVE: (base: number, comparator: number): boolean => {
+    return base < 0;
+  },
+  POSITIVE: (base: number, comparator: number): boolean => {
+    return base > 0;
+  }
 };
 
 class int implements ValidatorBase {
@@ -101,6 +109,22 @@ class int implements ValidatorBase {
     this.rules.LT = {
       value: comparator,
       error_message: overload?.error_message ?? `Failed on LT`,
+    };
+    return new int(this.rules);
+  }
+
+  public negative(overload?: { error_message?: string }) {
+    this.rules.NEGATIVE = {
+      value: 0,
+      error_message: overload?.error_message ?? `Failed on NEGATIVE`,
+    };
+    return new int(this.rules);
+  }
+
+  public positive(overload?: { error_message?: string }) {
+    this.rules.POSITIVE = {
+      value: 0,
+      error_message: overload?.error_message ?? `Failed on POSITIVE`,
     };
     return new int(this.rules);
   }
