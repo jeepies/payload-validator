@@ -10,6 +10,7 @@ type IntRules = {
   LT?: Rule;
   NEGATIVE?: Rule;
   POSITIVE?: Rule;
+  FINITE?: Rule;
 };
 
 const RuleBook = {
@@ -33,7 +34,10 @@ const RuleBook = {
   },
   POSITIVE: (base: number, comparator: number): boolean => {
     return base > 0;
-  }
+  },
+  FINITE: (base: number, comparator: number): boolean => {
+    return isFinite(base);
+  },
 };
 
 class int implements ValidatorBase {
@@ -125,6 +129,14 @@ class int implements ValidatorBase {
     this.rules.POSITIVE = {
       value: 0,
       error_message: overload?.error_message ?? `Failed on POSITIVE`,
+    };
+    return new int(this.rules);
+  }
+
+  public finite(overload?: { error_message?: string }) {
+    this.rules.FINITE = {
+      value: 0,
+      error_message: overload?.error_message ?? `Failed on FINITE`,
     };
     return new int(this.rules);
   }

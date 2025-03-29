@@ -204,6 +204,26 @@ describe('🧪 Validator Tests', () => {
           });
         });
       });
+
+      describe('FINITE', () => {
+        const isFinite = new validator.int().finite();
+
+        test('should fail when given an infinite number', () => {
+          const result = isFinite.safeParse(Infinity);
+          expect(result).toEqual({
+            error: ['Failed on FINITE'],
+            success: false,
+          })
+        })
+
+        test('should fail when given an infinite number', () => {
+          const result = isFinite.safeParse(7);
+          expect(result).toEqual({
+            data: 7,
+            success: true,
+          })
+        })
+      });
     });
 
     describe('String', () => {
