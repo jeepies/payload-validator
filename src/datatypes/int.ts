@@ -39,8 +39,9 @@ class int implements ValidatorBase {
     const results = Object.entries(this.rules).map(([k, v]) => ({
       rule: [k],
       failed: RuleBook[k as keyof IntRules](data, v.value) === false,
+      error_message: v.error_message
     }));
-    return results.filter((r) => r.failed === true).map((f) => f.rule);
+    return results.filter((r) => r.failed === true).map((f) => f.error_message);
   }
 
   public parse(data: number): number {
@@ -67,7 +68,7 @@ class int implements ValidatorBase {
   public equals(comparator: number, overload?: { error_message?: string }) {
     this.rules.EQUALS = {
       value: comparator,
-      error_message: overload?.error_message ?? `Failed on equals`,
+      error_message: overload?.error_message ?? `Failed on EQUALS`,
     };
     return new int(this.rules);
   }

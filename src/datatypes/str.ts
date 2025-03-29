@@ -36,8 +36,9 @@ class str implements ValidatorBase {
     const results = Object.entries(this.rules).map(([k, v]) => ({
       rule: [k],
       failed: RuleBook[k as keyof StrRules](data, v.value) === false,
+      error_message: v.error_message
     }));
-    return results.filter((r) => r.failed === true).map((f) => f.rule);
+    return results.filter((r) => r.failed === true).map((f) => f.error_message);
   }
 
   public parse(data: string): string {

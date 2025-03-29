@@ -77,7 +77,7 @@ const username = new validator.str().equals("jeepies");
 
 ## Roadmap (3.0.0)
 
-- [ ] Custom error messages 
+- [x] Custom error messages 
 - [ ] String Methods
     - [x] MIN
     - [x] MAX

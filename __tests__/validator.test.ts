@@ -11,7 +11,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given an integer that does not equal the bank pin', () => {
           const result = bankPink.safeParse(1234);
           expect(result).toEqual({
-            error: ['EQUALS'],
+            error: ['Failed on EQUALS'],
             success: false,
           });
         });
@@ -31,7 +31,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given an integer less than 18', () => {
           const result = isAboveOrEqualToo18.safeParse(6);
           expect(result).toEqual({
-            error: ['GTE'],
+            error: ['Failed on GTE'],
             success: false,
           });
         });
@@ -59,7 +59,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given an integer greater than 100', () => {
           const result = checkFor100orLess.safeParse(101);
           expect(result).toEqual({
-            error: ['LTE'],
+            error: ['Failed on LTE'],
             success: false,
           });
         });
@@ -87,7 +87,7 @@ describe('🧪 Validator Tests', () => {
         test('should throw anybody out that is over 24', () => {
           const result = canGetIntoClub.safeParse(42);
           expect(result).toEqual({
-            error: ['LTE'],
+            error: ['Failed on LTE'],
             success: false,
           });
         });
@@ -95,7 +95,7 @@ describe('🧪 Validator Tests', () => {
         test('should throw anybody out that is under 18', () => {
           const result = canGetIntoClub.safeParse(12);
           expect(result).toEqual({
-            error: ['GTE'],
+            error: ['Failed on GTE'],
             success: false,
           });
         });
@@ -115,7 +115,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given an integer less than 21', () => {
           const result = isAbove21.safeParse(20);
           expect(result).toEqual({
-            error: ['GT'],
+            error: ['Failed on GT'],
             success: false,
           });
         });
@@ -123,7 +123,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given 21', () => {
           const result = isAbove21.safeParse(21);
           expect(result).toEqual({
-            error: ['GT'],
+            error: ['Failed on GT'],
             success: false,
           });
         });
@@ -143,7 +143,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given an integer above or equal too 21', () => {
           const result = isBelow21.safeParse(500);
           expect(result).toEqual({
-            error: ['LT'],
+            error: ['Failed on LT'],
             success: false,
           });
         });
@@ -151,7 +151,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given 21', () => {
           const result = isBelow21.safeParse(21);
           expect(result).toEqual({
-            error: ['LT'],
+            error: ['Failed on LT'],
             success: false,
           });
         });
@@ -173,7 +173,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when not equal', () => {
           const result = username.safeParse('snook');
           expect(result).toEqual({
-            error: ['EQUALS'],
+            error: ['Failed on EQUALS'],
             success: false,
           });
         });
@@ -193,7 +193,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given a string below the minimum length', () => {
           const result = password.safeParse('pwd');
           expect(result).toEqual({
-            error: ['MIN'],
+            error: ['Failed on MIN'],
             success: false,
           });
         });
@@ -201,7 +201,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given a string equal too the minimum length', () => {
           const result = password.safeParse('pass');
           expect(result).toEqual({
-            error: ['MIN'],
+            error: ['Failed on MIN'],
             success: false,
           });
         });
@@ -221,7 +221,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given a string above the maximum length', () => {
           const result = username.safeParse('iamasupercooluser');
           expect(result).toEqual({
-            error: ['MAX'],
+            error: ['Failed on MAX'],
             success: false,
           });
         });
@@ -229,7 +229,7 @@ describe('🧪 Validator Tests', () => {
         test('should fail when given a string equal too the maximum length', () => {
           const result = username.safeParse('iamacooluser');
           expect(result).toEqual({
-            error: ['MAX'],
+            error: ['Failed on MAX'],
             success: false,
           });
         });
@@ -244,26 +244,36 @@ describe('🧪 Validator Tests', () => {
       });
 
       describe('INCLUDES', () => {
-        const token = new validator.str().includes("TOKEN_");
+        const token = new validator.str().includes('TOKEN_');
 
         test('should fail when given a string that doesnt include the needle', () => {
-          const result = token.safeParse("cm8uf8o2j000008jl19g3c1vv");
+          const result = token.safeParse('cm8uf8o2j000008jl19g3c1vv');
           expect(result).toEqual({
-            error: ["INCLUDES"],
+            error: ['Failed on INCLUDES'],
             success: false,
-          })
-        })
+          });
+        });
 
         test('should pass when given a string that contains the needle', () => {
-          const result = token.safeParse("TOKEN_cm8uf9ri4000108jl16v4e836");
+          const result = token.safeParse('TOKEN_cm8uf9ri4000108jl16v4e836');
           expect(result).toEqual({
-            data: "TOKEN_cm8uf9ri4000108jl16v4e836",
+            data: 'TOKEN_cm8uf9ri4000108jl16v4e836',
             success: true,
-          })
-        })
+          });
+        });
       });
     });
   });
 
-  describe('Custom error message', () => {});
+  describe('Custom error message', () => {
+    const username = new validator.str().equals('jeepies', { error_message: 'Incorrect username!' });
+
+    test('should fail and display custom error message', () => {
+      const result = username.safeParse('jay');
+      expect(result).toEqual({
+        error: ['Incorrect username!'],
+        success: false,
+      });
+    });
+  });
 });
