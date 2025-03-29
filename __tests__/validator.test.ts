@@ -285,7 +285,47 @@ describe('🧪 Validator Tests', () => {
         test('should pass when given a string of the required length', () => {
           const result = oneTimePassword.safeParse('fives');
           expect(result).toEqual({
-            data: "fives",
+            data: 'fives',
+            success: true,
+          });
+        });
+      });
+
+      describe('STARTS_WITH', () => {
+        const nameStartsWith = new validator.str().starts_with('Jay');
+
+        test('should fail when given a string that does not start with the needle', () => {
+          const result = nameStartsWith.safeParse('J Davis');
+          expect(result).toEqual({
+            error: ['Failed on STARTS_WITH'],
+            success: false,
+          });
+        });
+
+        test('should pass when given a string that does start with the needle', () => {
+          const result = nameStartsWith.safeParse('Jay Davis');
+          expect(result).toEqual({
+            data: 'Jay Davis',
+            success: true,
+          });
+        });
+      });
+
+      describe('ENDS_WITH', () => {
+        const emailEndsWith = new validator.str().ends_with('@jeepies.codes');
+
+        test('should fail when given a string that does not end with the needle', () => {
+          const result = emailEndsWith.safeParse('steve@github.com');
+          expect(result).toEqual({
+            error: ['Failed on ENDS_WITH'],
+            success: false,
+          });
+        });
+
+        test('should pass when given a string that does end with the needle', () => {
+          const result = emailEndsWith.safeParse('jay@jeepies.codes');
+          expect(result).toEqual({
+            data: 'jay@jeepies.codes',
             success: true,
           });
         });

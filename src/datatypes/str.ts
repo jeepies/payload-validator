@@ -8,6 +8,8 @@ type StrRules = {
   MAX?: Rule;
   INCLUDES?: Rule;
   LENGTH?: Rule;
+  STARTS_WITH?: Rule;
+  ENDS_WITH?: Rule;
 };
 
 const RuleBook = {
@@ -26,6 +28,12 @@ const RuleBook = {
   },
   LENGTH: (base: string, comparator: string): Boolean => {
     return base.length === +comparator
+  },
+  STARTS_WITH: (base: string, comparator: string): Boolean => {
+    return base.startsWith(comparator);
+  },
+  ENDS_WITH: (base: string, comparator: string): Boolean => {
+    return base.endsWith(comparator);
   },
 };
 
@@ -102,6 +110,22 @@ class str implements ValidatorBase {
     this.rules.LENGTH = {
       value: String(comparator),
       error_message: overload?.error_message ?? `Failed on LENGTH`,
+    };
+    return new str(this.rules);
+  }
+
+  public starts_with(comparator: string, overload?: { error_message?: string }) {
+    this.rules.STARTS_WITH = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on STARTS_WITH`,
+    };
+    return new str(this.rules);
+  }
+
+  public ends_with(comparator: string, overload?: { error_message?: string }) {
+    this.rules.ENDS_WITH = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on ENDS_WITH`,
     };
     return new str(this.rules);
   }

@@ -117,15 +117,13 @@ const password = new validator.str().max(256);
 - [ ] String Methods
   - [x] MIN
   - [x] MAX
-  - [ ] IMIN
-  - [ ] IMAX
   - [ ] REGEX
   - [x] LENGTH
   - [ ] IS_EMAIL
   - [ ] IS_IP
   - [x] INCLUDES
-  - [ ] STARTS_WITH
-  - [ ] ENDS_WITH
+  - [x] STARTS_WITH
+  - [x] ENDS_WITH
 - [ ] Advanced Integer Methods
   - [ ] IS_NEGATIVE
   - [ ] IS_POSITIVE
