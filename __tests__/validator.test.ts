@@ -215,7 +215,7 @@ describe('🧪 Validator Tests', () => {
         });
       });
 
-      describe('MIN', () => {
+      describe('MAX', () => {
         const username = new validator.str().max(12);
 
         test('should fail when given a string above the maximum length', () => {
