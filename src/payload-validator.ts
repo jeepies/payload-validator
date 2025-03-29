@@ -1,10 +1,7 @@
-import schemas from './schemas'
+import int from './datatypes/int';
 
 const validator = {
-   ...schemas
+  int,
 };
 
 export default validator;
-
-
-// all of this error code stuff is confusing. give the users ability to write their own errors
