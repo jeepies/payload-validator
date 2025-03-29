@@ -1,7 +1,7 @@
 # Payload Validator
 
-## Usage
 
+## Usage
 To start using the validator, you can use
 
 ```js
@@ -39,7 +39,7 @@ const passSafeParse = packageName.safeParse("pavi");
 
 Methods can also be chained
 ```js
-const password = new validator().str().min(3).max(256)
+const password = new validator().str().min(3).max(256);
 ```
 
 ## Data Types
