@@ -390,6 +390,26 @@ describe('🧪 Validator Tests', () => {
           });
         });
       });
+
+      describe('REGEX', () => {
+        const isValidUUID = new validator.str().regex("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
+        
+        test('should fail when given a string that does not match regex', () => {
+          const result = isValidUUID.safeParse('jeepies');
+          expect(result).toEqual({
+            error: ['Failed on REGEX'],
+            success: false,
+          })
+        })
+
+        test('should pass when given a string that does match regex', () => {
+          const result = isValidUUID.safeParse('2b71e220-1979-4a29-993d-025da1671fe2');
+          expect(result).toEqual({
+            data: "2b71e220-1979-4a29-993d-025da1671fe2",
+            success: true,
+          })
+        })
+      });
     });
   });
 

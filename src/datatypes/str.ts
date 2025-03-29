@@ -10,6 +10,7 @@ type StrRules = {
   LENGTH?: Rule;
   STARTS_WITH?: Rule;
   ENDS_WITH?: Rule;
+  REGEX?: Rule;
 };
 
 const RuleBook = {
@@ -34,6 +35,10 @@ const RuleBook = {
   },
   ENDS_WITH: (base: string, comparator: string): Boolean => {
     return base.endsWith(comparator);
+  },
+  REGEX: (base: string, regex: string): Boolean => {
+    const regExp = new RegExp(regex);
+    return regExp.test(base);
   },
 };
 
@@ -126,6 +131,14 @@ class str implements ValidatorBase {
     this.rules.ENDS_WITH = {
       value: comparator,
       error_message: overload?.error_message ?? `Failed on ENDS_WITH`,
+    };
+    return new str(this.rules);
+  }
+
+  public regex(comparator: string, overload?: { error_message?: string }) {
+    this.rules.REGEX = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on REGEX`,
     };
     return new str(this.rules);
   }
