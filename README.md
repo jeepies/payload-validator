@@ -124,9 +124,8 @@ const password = new validator.str().max(256);
   - [x] INCLUDES
   - [x] STARTS_WITH
   - [x] ENDS_WITH
-- [ ] Advanced Integer Methods
+- [x] Advanced Integer Methods
   - [x] IS_NEGATIVE
   - [x] IS_POSITIVE
   - [x] IS_FINITE
-  - [ ] IS_PHONE_NUMBER
 - [ ] Objects
