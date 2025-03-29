@@ -11,6 +11,8 @@ type StrRules = {
   STARTS_WITH?: Rule;
   ENDS_WITH?: Rule;
   REGEX?: Rule;
+  IS_EMAIL?: Rule;
+  IS_IP?: Rule;
 };
 
 const RuleBook = {
@@ -28,7 +30,7 @@ const RuleBook = {
     return base.includes(comparator);
   },
   LENGTH: (base: string, comparator: string): Boolean => {
-    return base.length === +comparator
+    return base.length === +comparator;
   },
   STARTS_WITH: (base: string, comparator: string): Boolean => {
     return base.startsWith(comparator);
@@ -38,6 +40,14 @@ const RuleBook = {
   },
   REGEX: (base: string, regex: string): Boolean => {
     const regExp = new RegExp(regex);
+    return regExp.test(base);
+  },
+  IS_EMAIL: (base: string, regex: string): Boolean => {
+    const regExp = new RegExp('[^s@]+@[^s@]+.[^s@]+');
+    return regExp.test(base);
+  },
+  IS_IP: (base: string, regex: string): Boolean => {
+    const regExp = new RegExp('(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)){3}');
     return regExp.test(base);
   },
 };
@@ -53,7 +63,7 @@ class str implements ValidatorBase {
     const results = Object.entries(this.rules).map(([k, v]) => ({
       rule: [k],
       failed: RuleBook[k as keyof StrRules](data, v.value) === false,
-      error_message: v.error_message
+      error_message: v.error_message,
     }));
     return results.filter((r) => r.failed === true).map((f) => f.error_message);
   }
@@ -139,6 +149,22 @@ class str implements ValidatorBase {
     this.rules.REGEX = {
       value: comparator,
       error_message: overload?.error_message ?? `Failed on REGEX`,
+    };
+    return new str(this.rules);
+  }
+
+  public email(overload?: { error_message?: string }) {
+    this.rules.IS_EMAIL = {
+      value: '',
+      error_message: overload?.error_message ?? `Failed on EMAIL`,
+    };
+    return new str(this.rules);
+  }
+
+  public ip(overload?: { error_message?: string }) {
+    this.rules.IS_IP = {
+      value: '',
+      error_message: overload?.error_message ?? `Failed on IP`,
     };
     return new str(this.rules);
   }

@@ -213,16 +213,16 @@ describe('🧪 Validator Tests', () => {
           expect(result).toEqual({
             error: ['Failed on FINITE'],
             success: false,
-          })
-        })
+          });
+        });
 
         test('should fail when given an infinite number', () => {
           const result = isFinite.safeParse(7);
           expect(result).toEqual({
             data: 7,
             success: true,
-          })
-        })
+          });
+        });
       });
     });
 
@@ -392,23 +392,63 @@ describe('🧪 Validator Tests', () => {
       });
 
       describe('REGEX', () => {
-        const isValidUUID = new validator.str().regex("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
-        
+        const isValidUUID = new validator.str().regex('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+
         test('should fail when given a string that does not match regex', () => {
           const result = isValidUUID.safeParse('jeepies');
           expect(result).toEqual({
             error: ['Failed on REGEX'],
             success: false,
-          })
-        })
+          });
+        });
 
         test('should pass when given a string that does match regex', () => {
           const result = isValidUUID.safeParse('2b71e220-1979-4a29-993d-025da1671fe2');
           expect(result).toEqual({
-            data: "2b71e220-1979-4a29-993d-025da1671fe2",
+            data: '2b71e220-1979-4a29-993d-025da1671fe2',
             success: true,
-          })
-        })
+          });
+        });
+      });
+
+      describe('EMAIL', () => {
+        const isEmail = new validator.str().email();
+
+        test('should fail on a string that is not an email', () => {
+          const result = isEmail.safeParse('jeepies');
+          expect(result).toEqual({
+            error: ['Failed on EMAIL'],
+            success: false,
+          });
+        });
+        
+        test('should pass on a string that is an email', () => {
+          const result = isEmail.safeParse('jay@jeepies.codes');
+          expect(result).toEqual({
+            data: 'jay@jeepies.codes',
+            success: true,
+          });
+        });
+      });
+
+      describe('IP', () => {
+        const isIPAddress = new validator.str().ip();
+
+        test('should fail on a string that is not an IP', () => {
+          const result = isIPAddress.safeParse('jeepies');
+          expect(result).toEqual({
+            error: ['Failed on IP'],
+            success: false,
+          });
+        });
+        
+        test('should pass on a string that is an IP', () => {
+          const result = isIPAddress.safeParse('127.0.0.1');
+          expect(result).toEqual({
+            data: '127.0.0.1',
+            success: true,
+          });
+        });
       });
     });
   });

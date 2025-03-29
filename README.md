@@ -114,13 +114,13 @@ const password = new validator.str().max(256);
 ## Roadmap (3.0.0)
 
 - [x] Custom error messages
-- [ ] String Methods
+- [x] String Methods
   - [x] MIN
   - [x] MAX
   - [x] REGEX
   - [x] LENGTH
-  - [ ] IS_EMAIL
-  - [ ] IS_IP
+  - [x] IS_EMAIL
+  - [x] IS_IP
   - [x] INCLUDES
   - [x] STARTS_WITH
   - [x] ENDS_WITH
