@@ -91,6 +91,24 @@ const is21OrAbove = new validator.int().gte(21);
 const is100OrBelow = new validator.int().lte(100);
 ```
 
+#### Negative
+
+```js
+const isNegative = new validator.int().negative();
+```
+
+#### Positive
+
+```js
+const isPositive = new validator.int().positive();
+```
+
+#### Finite
+
+```js
+const _isFinite = new validator.int().finite();
+```
+
 ### String
 
 #### Equals
@@ -111,21 +129,50 @@ const password = new validator.str().min(3);
 const password = new validator.str().max(256);
 ```
 
+#### Exact Length
+
+```js
+const password = new validator.str().length(8);
+```
+
+#### Includes
+
+```js
+const password = new validator.str().includes("123");
+```
+
+#### Starts With
+
+```js
+const password = new validator.str().starts_with("P");
+```
+
+#### Ends With
+
+```js
+const password = new validator.str().ends_with("123");
+```
+
+#### RegEx
+
+```js
+const uuid = new validator.str().regex('/
+[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
+/');
+```
+
+#### Email
+
+```js
+const isEmail = new validator.str().email();
+```
+
+#### IP Address
+
+```js
+const isIP = new validator.str().ip();
+```
+
 ## Roadmap (3.0.0)
 
-- [x] Custom error messages
-- [x] String Methods
-  - [x] MIN
-  - [x] MAX
-  - [x] REGEX
-  - [x] LENGTH
-  - [x] IS_EMAIL
-  - [x] IS_IP
-  - [x] INCLUDES
-  - [x] STARTS_WITH
-  - [x] ENDS_WITH
-- [x] Advanced Integer Methods
-  - [x] IS_NEGATIVE
-  - [x] IS_POSITIVE
-  - [x] IS_FINITE
 - [ ] Objects
