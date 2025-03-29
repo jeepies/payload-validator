@@ -1,6 +1,6 @@
 {
-  "name": "payload-validator",
-  "version": "1.0.0",
+  "name": "pavi",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": {
     "type": "git",
