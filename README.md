@@ -74,3 +74,23 @@ const is100OrBelow = new validator.int().lte(100);
 ```js 
 const username = new validator.str().equals("jeepies");
 ```
+
+## Roadmap (3.0.0)
+
+- [ ] Custom error messages 
+- [ ] String Methods
+    - [ ] MIN
+    - [ ] MAX
+    - [ ] REGEX
+    - [ ] LENGTH
+    - [ ] IS_EMAIL
+    - [ ] IS_IP
+    - [ ] INCLUDES
+    - [ ] STARTS_WITH
+    - [ ] ENDS_WITH
+ - [ ] Advanced Integer Methods
+    - [ ] IS_NEGATIVE
+    - [ ] IS_POSITIVE
+    - [ ] IS_FINITE
+    - [ ] IS_PHONE_NUMBER
+- [ ] Objects
