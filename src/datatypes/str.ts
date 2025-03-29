@@ -1,10 +1,11 @@
-import ValidatorBase from "../types/ValidatorBase";
-import Rule from "../types/Rule";
-import Result from "../types/Result";
+import ValidatorBase from '../types/ValidatorBase';
+import Rule from '../types/Rule';
+import Result from '../types/Result';
 
 type StrRules = {
   EQUALS?: Rule;
   MIN?: Rule;
+  MAX?: Rule;
 };
 
 const RuleBook = {
@@ -13,10 +14,10 @@ const RuleBook = {
   },
   MIN: (base: string, comparator: string): Boolean => {
     // Not fond of this. Find a way to make it possible without casting.
-    return base.length > +(comparator);
+    return base.length > +comparator;
   },
-  IMIN: (base: string, comparator: string): Boolean => {
-    return base.length >= +(comparator);
+  MAX: (base: string, comparator: string): Boolean => {
+    return base.length < +comparator;
   },
 };
 
@@ -37,7 +38,7 @@ class str implements ValidatorBase {
 
   public parse(data: string): string {
     const failed = this._parse(data);
-    if (failed.length !== 0) throw new Error("str is invalid");
+    if (failed.length !== 0) throw new Error('str is invalid');
     return data;
   }
 
@@ -58,16 +59,24 @@ class str implements ValidatorBase {
 
   public equals(comparator: string, overload?: { error_message?: string }) {
     this.rules.EQUALS = {
-        value: comparator,
-        error_message: overload?.error_message ?? `Failed on EQUALS`,
-      };
-      return new str(this.rules);
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on EQUALS`,
+    };
+    return new str(this.rules);
   }
 
   public min(comparator: number, overload?: { error_message?: string }) {
     this.rules.MIN = {
       value: String(comparator),
       error_message: overload?.error_message ?? `Failed on MIN`,
+    };
+    return new str(this.rules);
+  }
+
+  public max(comparator: number, overload?: { error_message?: string }) {
+    this.rules.MAX = {
+      value: String(comparator),
+      error_message: overload?.error_message ?? `Failed on MAX`,
     };
     return new str(this.rules);
   }

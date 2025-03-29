@@ -79,8 +79,10 @@ const username = new validator.str().equals("jeepies");
 
 - [ ] Custom error messages 
 - [ ] String Methods
-    - [ ] MIN
-    - [ ] MAX
+    - [x] MIN
+    - [x] MAX
+    - [ ] IMIN
+    - [ ] IMAX
     - [ ] REGEX
     - [ ] LENGTH
     - [ ] IS_EMAIL
