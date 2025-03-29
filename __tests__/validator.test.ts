@@ -165,6 +165,28 @@ describe("🧪 Validator Tests", () => {
         });
       });
     });
+
+    describe("String", () => {
+      describe("Equals", () => {
+        const username = new validator.str().equals("jeepies");
+
+        test("should fail when not equal", () => {
+          const result = username.safeParse("snook");
+          expect(result).toEqual({
+            error: ["EQUALS"],
+            success: false,
+          });
+        });
+
+        test('should pass when equal', () => {
+          const result = username.safeParse("jeepies");
+          expect(result).toEqual({
+            data: "jeepies",
+            success: true,
+          });
+        })
+      });
+    });
   });
 
   describe("Custom error message", () => {});
