@@ -40,7 +40,6 @@ class int implements ValidatorBase {
       rule: [k],
       failed: RuleBook[k as keyof IntRules](data, v.value) === false,
     }));
-    console.log(results)
     return results.filter((r) => r.failed === true).map((f) => f.rule);
   }
 
