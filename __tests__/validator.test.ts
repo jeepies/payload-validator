@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
 import validator from '../src/payload-validator';
 
@@ -106,7 +106,7 @@ describe('🧪 Validator Tests', () => {
             data: 21,
             success: true,
           });
-        })
+        });
       });
 
       describe('GT', () => {
