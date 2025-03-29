@@ -1,7 +1,7 @@
 {
   "name": "pavi",
   "version": "2.1.0",
-  "main": "index.js",
+  "main": "dist/payload-validator.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeepies/payload-validator.git"
