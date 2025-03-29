@@ -12,7 +12,7 @@ import validator from "pavi";
 There are two types of parsing - safe and unsafe.
 
 ```js
-const packageName = new validator().str().equals("pavi");
+const packageName = new validator.str().equals("pavi");
 
 const unsafeParse = packageName.parse("ivap"); // will throw an error
 const safeParse = packageName.safeParse("ivap"); // will return an object
@@ -39,32 +39,32 @@ const passSafeParse = packageName.safeParse("pavi");
 
 Methods can also be chained
 ```js
-const password = new validator().str().min(3).max(256);
+const password = new validator.str().min(3).max(256);
 ```
 
 ## Data Types
 ### Integer
 #### Equals
 ```js 
-const clientBankPin = new validator().int().equals(1337);
+const clientBankPin = new validator.int().equals(1337);
 ```
 
 #### Greater than (GT)
 ```js 
-const isAbove18 = new validator().int().gt(18);
+const isAbove18 = new validator.int().gt(18);
 ```
 
 #### Less than (LT)
 ```js 
-const isBelow100 = new validator().int().lt(100);
+const isBelow100 = new validator.int().lt(100);
 ```
 
 #### Greater than or equals (GTE)
 ```js 
-const is21OrAbove = new validator().int().gte(21);
+const is21OrAbove = new validator.int().gte(21);
 ```
 
 #### Less than or equals (LTE)
 ```js 
-const is100OrBelow = new validator().int().lte(100);
+const is100OrBelow = new validator.int().lte(100);
 ```
