@@ -120,7 +120,7 @@ const password = new validator.str().max(256);
   - [ ] IMIN
   - [ ] IMAX
   - [ ] REGEX
-  - [ ] LENGTH
+  - [x] LENGTH
   - [ ] IS_EMAIL
   - [ ] IS_IP
   - [x] INCLUDES

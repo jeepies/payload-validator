@@ -262,6 +262,34 @@ describe('🧪 Validator Tests', () => {
           });
         });
       });
+
+      describe('LENGTH', () => {
+        const oneTimePassword = new validator.str().length(5);
+
+        test('should fail when given a string shorter than required', () => {
+          const result = oneTimePassword.safeParse('pass');
+          expect(result).toEqual({
+            error: ['Failed on LENGTH'],
+            success: false,
+          });
+        });
+
+        test('should fail when given a string longer than required', () => {
+          const result = oneTimePassword.safeParse('password');
+          expect(result).toEqual({
+            error: ['Failed on LENGTH'],
+            success: false,
+          });
+        });
+
+        test('should pass when given a string of the required length', () => {
+          const result = oneTimePassword.safeParse('fives');
+          expect(result).toEqual({
+            data: "fives",
+            success: true,
+          });
+        });
+      });
     });
   });
 
