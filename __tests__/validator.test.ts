@@ -186,6 +186,23 @@ describe("🧪 Validator Tests", () => {
           });
         })
       });
+
+      describe('MIN', () => {
+        const password = new validator.str().min(4);
+
+        test('should fail when given a string below the minimum length', () => 
+        {
+          const result = password.safeParse("pwd");
+          expect(result).toEqual({
+               "error":  [
+                   "MIN",
+                 ],
+                 success: false,
+          })
+        })
+
+
+      });
     });
   });
 
