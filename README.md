@@ -68,3 +68,9 @@ const is21OrAbove = new validator.int().gte(21);
 ```js 
 const is100OrBelow = new validator.int().lte(100);
 ```
+
+### String
+#### Equals
+```js 
+const username = new validator.str().equals("jeepies");
+```
