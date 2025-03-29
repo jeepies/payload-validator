@@ -8,6 +8,9 @@ type IntRules = {
   LTE?: Rule;
   GT?: Rule;
   LT?: Rule;
+  NEGATIVE?: Rule;
+  POSITIVE?: Rule;
+  FINITE?: Rule;
 };
 
 const RuleBook = {
@@ -26,6 +29,15 @@ const RuleBook = {
   LT: (base: number, comparator: number): boolean => {
     return base < comparator;
   },
+  NEGATIVE: (base: number, comparator: number): boolean => {
+    return base < 0;
+  },
+  POSITIVE: (base: number, comparator: number): boolean => {
+    return base > 0;
+  },
+  FINITE: (base: number, comparator: number): boolean => {
+    return isFinite(base);
+  },
 };
 
 class int implements ValidatorBase {
@@ -39,8 +51,9 @@ class int implements ValidatorBase {
     const results = Object.entries(this.rules).map(([k, v]) => ({
       rule: [k],
       failed: RuleBook[k as keyof IntRules](data, v.value) === false,
+      error_message: v.error_message
     }));
-    return results.filter((r) => r.failed === true).map((f) => f.rule);
+    return results.filter((r) => r.failed === true).map((f) => f.error_message);
   }
 
   public parse(data: number): number {
@@ -67,7 +80,7 @@ class int implements ValidatorBase {
   public equals(comparator: number, overload?: { error_message?: string }) {
     this.rules.EQUALS = {
       value: comparator,
-      error_message: overload?.error_message ?? `Failed on equals`,
+      error_message: overload?.error_message ?? `Failed on EQUALS`,
     };
     return new int(this.rules);
   }
@@ -100,6 +113,30 @@ class int implements ValidatorBase {
     this.rules.LT = {
       value: comparator,
       error_message: overload?.error_message ?? `Failed on LT`,
+    };
+    return new int(this.rules);
+  }
+
+  public negative(overload?: { error_message?: string }) {
+    this.rules.NEGATIVE = {
+      value: 0,
+      error_message: overload?.error_message ?? `Failed on NEGATIVE`,
+    };
+    return new int(this.rules);
+  }
+
+  public positive(overload?: { error_message?: string }) {
+    this.rules.POSITIVE = {
+      value: 0,
+      error_message: overload?.error_message ?? `Failed on POSITIVE`,
+    };
+    return new int(this.rules);
+  }
+
+  public finite(overload?: { error_message?: string }) {
+    this.rules.FINITE = {
+      value: 0,
+      error_message: overload?.error_message ?? `Failed on FINITE`,
     };
     return new int(this.rules);
   }
