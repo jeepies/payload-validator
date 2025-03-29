@@ -87,7 +87,7 @@ const username = new validator.str().equals("jeepies");
     - [ ] LENGTH
     - [ ] IS_EMAIL
     - [ ] IS_IP
-    - [ ] INCLUDES
+    - [x] INCLUDES
     - [ ] STARTS_WITH
     - [ ] ENDS_WITH
  - [ ] Advanced Integer Methods

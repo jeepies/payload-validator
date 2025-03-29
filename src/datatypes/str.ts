@@ -6,6 +6,7 @@ type StrRules = {
   EQUALS?: Rule;
   MIN?: Rule;
   MAX?: Rule;
+  INCLUDES?: Rule;
 };
 
 const RuleBook = {
@@ -19,6 +20,9 @@ const RuleBook = {
   MAX: (base: string, comparator: string): Boolean => {
     return base.length < +comparator;
   },
+  INCLUDES: (base: string, comparator: string): Boolean => {
+    return base.includes(comparator);
+  }
 };
 
 class str implements ValidatorBase {
@@ -77,6 +81,14 @@ class str implements ValidatorBase {
     this.rules.MAX = {
       value: String(comparator),
       error_message: overload?.error_message ?? `Failed on MAX`,
+    };
+    return new str(this.rules);
+  }
+
+  public includes(comparator: string, overload?: { error_message?: string }) {
+    this.rules.INCLUDES = {
+      value: String(comparator),
+      error_message: overload?.error_message ?? `Failed on INCLUDES`,
     };
     return new str(this.rules);
   }

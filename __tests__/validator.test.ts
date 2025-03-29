@@ -206,13 +206,13 @@ describe('🧪 Validator Tests', () => {
           });
         });
 
-        test("should pass when given a string above the minimum length", () => {
+        test('should pass when given a string above the minimum length', () => {
           const result = password.safeParse('password');
           expect(result).toEqual({
-            data: "password",
-            success: true
+            data: 'password',
+            success: true,
           });
-        })
+        });
       });
 
       describe('MIN', () => {
@@ -234,12 +234,32 @@ describe('🧪 Validator Tests', () => {
           });
         });
 
-        test("should pass when given a string above the minimum length", () => {
+        test('should pass when given a string above the minimum length', () => {
           const result = username.safeParse('jeepies');
           expect(result).toEqual({
-            data: "jeepies",
-            success: true
+            data: 'jeepies',
+            success: true,
           });
+        });
+      });
+
+      describe('INCLUDES', () => {
+        const token = new validator.str().includes("TOKEN_");
+
+        test('should fail when given a string that doesnt include the needle', () => {
+          const result = token.safeParse("cm8uf8o2j000008jl19g3c1vv");
+          expect(result).toEqual({
+            error: ["INCLUDES"],
+            success: false,
+          })
+        })
+
+        test('should pass when given a string that contains the needle', () => {
+          const result = token.safeParse("TOKEN_cm8uf9ri4000108jl16v4e836");
+          expect(result).toEqual({
+            data: "TOKEN_cm8uf9ri4000108jl16v4e836",
+            success: true,
+          })
         })
       });
     });
