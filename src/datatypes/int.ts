@@ -1,6 +1,6 @@
-import ValidatorBase from '../types/ValidatorBase';
-import Rule from '../types/Rule';
-import Result from '../types/Result';
+import ValidatorBase from "../types/ValidatorBase";
+import Rule from "../types/Rule";
+import Result from "../types/Result";
 
 type IntRules = {
   EQUALS?: Rule;
@@ -45,7 +45,7 @@ class int implements ValidatorBase {
 
   public parse(data: number): number {
     const failed = this._parse(data);
-    if (failed.length !== 0) throw new Error('int is invalid');
+    if (failed.length !== 0) throw new Error("int is invalid");
     return data;
   }
 
@@ -65,27 +65,42 @@ class int implements ValidatorBase {
   }
 
   public equals(comparator: number, overload?: { error_message?: string }) {
-    this.rules.EQUALS = { value: comparator, error_message: overload?.error_message ?? `Failed on equals` };
+    this.rules.EQUALS = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on equals`,
+    };
     return new int(this.rules);
   }
 
   public gte(comparator: number, overload?: { error_message?: string }) {
-    this.rules.GTE = { value: comparator, error_message: overload?.error_message ?? `Failed on GTE` };
+    this.rules.GTE = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on GTE`,
+    };
     return new int(this.rules);
   }
 
   public lte(comparator: number, overload?: { error_message?: string }) {
-    this.rules.LTE = { value: comparator, error_message: overload?.error_message ?? `Failed on LTE` };
+    this.rules.LTE = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on LTE`,
+    };
     return new int(this.rules);
   }
 
   public gt(comparator: number, overload?: { error_message?: string }) {
-    this.rules.GT = { value: comparator, error_message: overload?.error_message ?? `Failed on GT` };
+    this.rules.GT = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on GT`,
+    };
     return new int(this.rules);
   }
 
   public lt(comparator: number, overload?: { error_message?: string }) {
-    this.rules.LT = { value: comparator, error_message: overload?.error_message ?? `Failed on LT` };
+    this.rules.LT = {
+      value: comparator,
+      error_message: overload?.error_message ?? `Failed on LT`,
+    };
     return new int(this.rules);
   }
 }
